@@ -1,38 +1,66 @@
 <div class="card">
     <h3>Gofit</h3>
     <p>Jl. Centralpark No. 10 Yogyakarta</p>
-    <h3>Member Card</h3>
+    <span></span>
+    <h3><strong>Struk Presensi Kelas</strong></h3>
     <table>
         <tr>
             <td>
-                <p>Member ID </p>
+                <p>No Struk </p>
             </td>
             <td>
-                <p>: {{$data['ID_MEMBER']}}</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p>Nama </p>
-            </td>
-            <td>
-                <p>: {{$data['NAMA_MEMBER']}}</p>
+                <p>: {{$data->id_presensi_kelas}}</p>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Alamat </p>
+                <p>Tanggal </p>
             </td>
             <td>
-                <p>: {{$data['ALAMAT_MEMBER']}}</p>
+                <p>: {{$data->waktu_presensi_member_kelas}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <p><strong>Member</strong> </p>
+            </td>
+            <td>
+                <p>: {{$data->id_member}}/{{$data->nama_member}}</p>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Telepon </p>
+                <p>Kelas </p>
             </td>
             <td>
-                <p>: {{$data['TELEPON_MEMBER']}}</p>
+                <p>: {{$data->nama_kelas}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Instruktur </p>
+            </td>
+            <td>
+                <p>: {{$data->nama_instruktur}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Tarif </p>
+            </td>
+            <td>
+                <p>: {{$data->harga_kelas}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Sisa Deposit </p>
+            </td>
+            <td>
+                <p>: {{$data->jumlah_deposit_uang}}</p>
             </td>
         </tr>
     </table>

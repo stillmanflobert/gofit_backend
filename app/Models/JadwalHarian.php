@@ -15,8 +15,8 @@ class JadwalHarian extends Model
         'id_jadwal_kelas',
         'waktu_mulai_kelas',
         'waktu_selesai_kelas',
-        'id_instruktur',
         'sisa_member_kelas',
-        'id_jadwal_default'
+        'tanggal',
+        'status'
     ];
 }

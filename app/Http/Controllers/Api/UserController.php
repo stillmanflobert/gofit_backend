@@ -66,6 +66,17 @@ class UserController extends Controller
             ], 400);
         }
 
+        $cekRole = User::where('id_user', $changePasswordData['id_user'])->first();
+
+        if ($cekRole->role == 'member') {
+            return response()->json([
+                'success' => false,
+                'message' => 'You are not allowed to change password'
+            ], 401);
+        }
+
+
+
         if ($changePasswordData['password'] == $changePasswordData['new_password']) {
             return response()->json([
                 'success' => false,

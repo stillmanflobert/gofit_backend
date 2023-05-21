@@ -18,7 +18,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $dataIndex = Member::where('status', 1)->get();
+        $dataIndex = Member::all();
         if ($dataIndex->isEmpty()) {
             return response()->json([
                 'success' => false,
@@ -238,6 +238,33 @@ class MemberController extends Controller
             'success' => true,
             'message' => 'Password Reseted',
             'data' => $dataUpdate
+        ], 200);
+    }
+
+    public function memberKadaluarsa()
+    {
+        $data = Member::where('status', 1)->where('waktu_aktivasi_ekspired', '<', date('Y-m-d '))->get();
+        if ($data == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Member Not Found',
+                'data' => null
+            ], 404);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Member Kadaluarsa',
+            'data' => $data
+        ], 200);
+    }
+
+    public function deaktivasiMember()
+    {
+        $data = Member::where('waktu_aktivasi_ekspired', '<', date('Y-m-d H:i:s'))->update(['status' => 0]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Member Deactivated',
+            'data' => $data
         ], 200);
     }
 }

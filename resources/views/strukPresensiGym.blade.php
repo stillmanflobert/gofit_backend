@@ -1,38 +1,42 @@
 <div class="card">
     <h3>Gofit</h3>
     <p>Jl. Centralpark No. 10 Yogyakarta</p>
-    <h3>Member Card</h3>
+    <span></span>
+    <h3><strong>Struk Presensi Gym</strong></h3>
     <table>
         <tr>
             <td>
-                <p>Member ID </p>
+                <p>No Struk </p>
             </td>
             <td>
-                <p>: {{$data['ID_MEMBER']}}</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p>Nama </p>
-            </td>
-            <td>
-                <p>: {{$data['NAMA_MEMBER']}}</p>
+                <p>: {{ $data->id_presensi_gym }}</p>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Alamat </p>
+                <p>Tanggal </p>
             </td>
             <td>
-                <p>: {{$data['ALAMAT_MEMBER']}}</p>
+                <p>: {{ $data->waktu_presensi_member_gym }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <p><strong>Member</strong> </p>
+            </td>
+            <td>
+                <p>: {{ $data->id_member }}/{{ $data->nama_member }}</p>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Telepon </p>
+                <p>Slot Waktu </p>
             </td>
             <td>
-                <p>: {{$data['TELEPON_MEMBER']}}</p>
+                <p>: {{ $data->sesi_gym }}</p>
             </td>
         </tr>
     </table>
