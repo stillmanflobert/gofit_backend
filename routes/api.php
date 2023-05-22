@@ -54,3 +54,8 @@ Route::get('cetak-presensi-gym/{id}', 'App\Http\Controllers\Api\PresensiMemberGy
 Route::get('cetak-presensi-kelas/{id}', 'App\Http\Controllers\Api\PresensiMemberKelasController@cetakStrukPresensiKelas');
 Route::apiResource('presensi-member-gym', 'App\Http\Controllers\Api\PresensiMemberGymController');
 Route::apiResource('presensi-member-kelas', 'App\Http\Controllers\Api\PresensiMemberKelasController');
+Route::apiResource('booking-sesi-gym', 'App\Http\Controllers\Api\BookingSesiGymController');
+Route::post('batal-booking-gym', 'App\Http\Controllers\Api\BookingSesiGymController@batalBookingGym');
+Route::get('tampil-kelas-hari-ini', 'App\Http\Controllers\Api\JadwalHarianController@tampilKelasHariIni');
+Route::post('update-waktu-mulai-kelas/{id}', 'App\Http\Controllers\Api\JadwalHarianController@updateWaktuMulaiKelas');
+Route::post('update-waktu-selesai-kelas/{id}', 'App\Http\Controllers\Api\JadwalHarianController@updateWaktuSelesaiKelas');

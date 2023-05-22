@@ -20,11 +20,13 @@ class JadwalHarianController extends Controller
      */
     public function index()
     {
+        $firstDayOfWeek = Carbon::now()->startOfWeek();
         $data = DB::table(DB::raw('jadwal_harian jh'))
             ->join(DB::raw('jadwal_default jd'), 'jd.id_jadwal_default', '=', 'jh.id_jadwal_default')
             ->join(DB::raw('kelas k'), 'k.id_kelas', '=', 'jd.id_kelas')
             ->join(DB::raw('instruktur i'), 'i.id_instruktur', '=', 'jd.id_instruktur')
             ->select('jh.*', 'k.nama_kelas', 'i.nama_instruktur', 'jd.sesi_jadwal_default', 'jd.hari_jadwal_default')
+            ->where('jh.tanggal', '>=', $firstDayOfWeek)
             ->get();
 
         return response()->json([
@@ -152,5 +154,83 @@ class JadwalHarianController extends Controller
             'message' => 'Jadwal Harian created successfully',
             'data' => $jadwalHarian
         ], 200);
+    }
+
+    public function tampilKelasHariIni()
+    {
+        $data = DB::table(DB::raw('jadwal_harian jh'))
+            ->join(DB::raw('jadwal_default jd'), 'jd.id_jadwal_default', '=', 'jh.id_jadwal_default')
+            ->join(DB::raw('kelas k'), 'k.id_kelas', '=', 'jd.id_kelas')
+            ->join(DB::raw('instruktur i'), 'i.id_instruktur', '=', 'jd.id_instruktur')
+            ->select('jh.*', 'k.nama_kelas', 'i.nama_instruktur', 'jd.sesi_jadwal_default', 'jd.hari_jadwal_default')
+            ->where('jh.tanggal', date('Y-m-d'))
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ini Index Jadwal Harian',
+            'data' => $data
+        ], 200);
+    }
+
+    public function updateWaktuMulaiKelas($id)
+    {
+        $data = JadwalHarian::where('id_jadwal_kelas', $id)->first();
+        if ($data->WAKTU_MULAI_KELAS != null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Waktu Mulai Kelas Sudah Diupdate'
+            ], 400);
+        }
+        if ($data->waktu_mulai_kelas == null) {
+            date_default_timezone_set('Asia/Jakarta');
+            $now = date('Y-m-d H:i:s');
+            $update = JadwalHarian::where('id_jadwal_kelas', $id)->update([
+                'waktu_mulai_kelas' => $now
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Waktu Mulai Kelas Updated',
+                'data' => $update
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Waktu Mulai Kelas Sudah Diupdate'
+            ], 400);
+        }
+    }
+
+    public function updateWaktuSelesaiKelas($id)
+    {
+        $data = JadwalHarian::where('id_jadwal_kelas', $id)->first();
+        if ($data->WAKTU_MULAI_KELAS == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Waktu Mulai Kelas Belum Diupdate'
+            ], 400);
+        }
+        if ($data->WAKTU_SELESAI_KELAS != null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Waktu Selesai Kelas Sudah Diupdate'
+            ], 400);
+        }
+        if ($data->waktu_selesai_kelas == null) {
+            date_default_timezone_set('Asia/Jakarta');
+            $now = date('Y-m-d H:i:s');
+            $update = JadwalHarian::where('id_jadwal_kelas', $id)->update([
+                'waktu_selesai_kelas' => $now
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Waktu Selesai Kelas Berhasil Diupdate'
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Waktu Selesai Kelas Sudah Diupdate'
+            ], 400);
+        }
     }
 }
